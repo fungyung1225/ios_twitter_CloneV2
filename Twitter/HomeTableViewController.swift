@@ -17,13 +17,20 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadTweets()//call function
+        //loadTweets()//call function //move to did appoear
         //pull to refresh
         myFreshControl.addTarget(self, action: #selector(loadTweets), for: .valueChanged)
         tableView.refreshControl = myFreshControl
         
     }
 
+    //reload when the view load or reload
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweets()
+    }
+    
+    
     //create function for retrevie tweets
     @objc func loadTweets(){
         
