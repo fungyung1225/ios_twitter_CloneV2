@@ -11,7 +11,7 @@ import UIKit
 class TweetCellTableViewCell: UITableViewCell {
 
     var favoried: Bool = false
-    
+    var tweetId: Int = -1
     @IBOutlet weak var profileImg: UIImageView!
     @IBOutlet weak var userNameLbl: UILabel!
     @IBOutlet weak var tweetContentLbl: UILabel!
@@ -26,6 +26,20 @@ class TweetCellTableViewCell: UITableViewCell {
     }
     
     @IBAction func tapFavoriteTweet(_ sender: Any) {
+        let toBeFavorited = !favoried
+        if(toBeFavorited){
+            TwitterAPICaller.client?.favoriteTweet(tweetId: tweetId, success: {
+                self.setFavorite(true)
+            }, faliure: { (error) in
+                
+            })
+        }else{
+            TwitterAPICaller.client?.unfavoriteTweet(tweetId: tweetId,  success: {
+                self.setFavorite(false)
+            }, faliure: { (error) in
+                
+            })
+        }
     }
     
     func setFavorite (_ isFavorite:Bool){
